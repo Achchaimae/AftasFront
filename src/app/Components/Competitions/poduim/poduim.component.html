@@ -1,0 +1,88 @@
+<div>
+    <app-navbar></app-navbar>
+    <h1 class="font-bold text-center text-2xl  underline my-8">Podium</h1>
+    <section class=" flex ">
+        <div class="flex justify-around w-full " *ngFor="let item of ranking">
+
+            <div class="flex w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-md" *ngIf="item.rank==2" >
+                <div class="flex items-center justify-center w-12 bg-emerald-500">
+                    
+                    <div class="w-6 h-6 bg-white fill-current text-center rounded-full" >
+                        <i class="fa-solid fa-2"></i>
+
+                    </div>
+                </div>
+
+                <div class="px-4 py-2 -mx-3">
+                    <div class="mx-3">
+                        <span class="font-semibold text-emerald-500 "> {{item.id?.member?.name}} {{item.id?.member?.familtyName}}</span>
+                        <p class="text-sm text-gray-600 ">{{item.score}} Points</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="flex w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-md scale-110" *ngIf="item.rank==1">
+                <div class="flex items-center justify-center w-12 bg-yellow-400">
+                    <div class="w-6 h-6 bg-white fill-current text-center rounded-full" >
+                        <i class="fa-solid fa-1"></i>
+
+                    </div>
+                </div>
+
+                <div class="px-4 py-2 -mx-3">
+                    <div class="mx-3">
+                        <span class="font-semibold text-yellow-400 ">{{item.id?.member?.name}} {{item.id?.member?.familtyName}}</span>
+                        <p class="text-sm text-gray-600 ">{{item.score}} Points</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="flex w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-md" *ngIf="item.rank==3">
+                <div class="flex items-center justify-center w-12 bg-blue-400">
+                    <div class="w-6 h-6 bg-white fill-current text-center rounded-full" >
+                        <i class="fa-solid fa-3"></i>
+
+                    </div>
+                </div>
+
+                <div class="px-4 py-2 -mx-3">
+                    <div class="mx-3">
+                        <span class="font-semibold text-blue-400 ">{{item.id?.member?.name}} {{item.id?.member?.familtyName}}</span>
+                        <p class="text-sm text-gray-600 ">{{item.score}} Points</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <h1  class="font-bold text-center text-xl  underline my-8">List Of the Competitors</h1>
+    <section class="mt-8">
+        <div *ngFor="let item of rankings" class="w-full  flex flex-col my-4 justify-center items-center " >
+
+            <div class="flex w-[40vw]  overflow-hidden bg-white rounded-lg shadow-md  ">
+                <div class="flex items-center justify-center w-12 bg-red-500">
+                    <p class="w-6 h-6 text-black fill-current bg-white rounded-full text-center ">
+                        {{item.rank}}
+                    </p>
+                   
+                </div>
+            
+                <div class="px-4 py-2 -mx-3 flex  justify-around w-full">
+                    <div class="mx-3">
+                        <span class="font-semibold text-black ">{{item.id?.member?.name}} {{item.id?.member?.familtyName}}</span>
+                        <p class="text-sm text-gray-600 ">
+                            {{item.score}} Points 
+                        </p>
+                    </div>
+                    
+                </div>
+                <div class="mr-8 flex items-center justify-center ">
+                   {{item.id?.member?.nationality}}
+                </div>
+            </div>
+            
+        </div>
+    </section>
+</div>
