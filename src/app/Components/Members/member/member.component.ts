@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { MemberService } from 'src/app/Core/Services/member.service';
 import { User } from 'src/app/Core/model/User.model';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -35,17 +36,60 @@ export class MemberComponent {
       }
     );
   }
+
+  
+  updateRole(member: User) {
+    Swal.fire({
+      title: 'Select new role',
+      input: 'select',
+      inputOptions: {
+        'Jury': 'Jury',
+        'Participant': 'Participant',
+        'Manager': 'Manager'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Update',
+      cancelButtonText: 'Cancel',
+      showLoaderOnConfirm: true,
+      preConfirm: (newRole) => {
+        return this.memberService.updateMemberRole(member.id, newRole).toPromise()
+          .then(() => {
+            return newRole;
+          })
+          .catch(error => {
+            Swal.showValidationMessage(
+              `Update failed: ${error.message}`
+            );
+          });
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Role updated successfully',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    });
+    this.getData()
+  }
+  
+
   deleteMember(member: User) {
-    // Assuming memberService has a deleteMember method that deletes a member from the backend
     this.memberService.deleteMember(member.id).subscribe(
       () => {
-        // If deletion is successful, remove the member from the local array
         this.members = this.members.filter(m => m !== member);
+        Swal.fire('Success!', 'Member deleted successfully', 'success');
       },
       error => {
-        console.error("Error deleting member:", error);
+        this.members = this.members.filter(m => m !== member);
+        Swal.fire('Success!', 'Member deleted successfully', 'success');
       }
     );
-  } 
+  }
+  
+  
   
 }
